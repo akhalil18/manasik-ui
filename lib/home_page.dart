@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:manasik/screen_util.dart';
 
@@ -171,6 +173,13 @@ class HomePage extends StatelessWidget {
             height: 70,
             decoration: BoxDecoration(
               color: Colors.amber,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 5,
+                  color: Colors.grey[350],
+                  offset: Offset(2, 5),
+                ),
+              ],
               borderRadius: BorderRadiusDirectional.only(
                 bottomStart: Radius.circular(40),
                 topStart: Radius.circular(40),
@@ -277,54 +286,59 @@ class HomePage extends StatelessWidget {
       child: Stack(
         overflow: Overflow.visible,
         children: [
+          // Image
           Container(
             width: double.infinity,
             child: Image.asset(image, fit: BoxFit.fill),
           ),
+
+          // Bottom Button
           Positioned.directional(
             textDirection: TextDirection.ltr,
             bottom: -10,
             end: -20,
-            child: Opacity(
-              opacity: 0.95,
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 11, horizontal: 20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 10,
-                      color: Colors.grey[300],
-                      offset: Offset(5, 8),
-                    ),
-                  ],
-                  borderRadius: BorderRadiusDirectional.only(
-                    bottomStart: Radius.circular(20),
-                    bottomEnd: Radius.circular(20),
-                    topEnd: Radius.circular(20),
+            child: Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 12,
+                    color: Colors.grey[300],
+                    offset: Offset(3, 5),
                   ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                  topRight: Radius.circular(20),
                 ),
-                child: Container(
-                  width: 100,
-                  child: GestureDetector(
-                    onTap: onTab,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                              color: Colors.amber,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 18,
-                          color: Colors.amber,
-                        ),
-                      ],
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                  child: Container(
+                    width: 120,
+                    color: Colors.white.withOpacity(0.75),
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: GestureDetector(
+                      onTap: onTab,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            title,
+                            style: TextStyle(
+                                color: Colors.amber,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 18,
+                            color: Colors.amber,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
